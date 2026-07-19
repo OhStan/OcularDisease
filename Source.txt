@@ -1,0 +1,28 @@
+https://www.kaggle.com/datasets/manan1717/ocular-disease-dataset
+
+
+About Dataset
+This Eye Disease Dataset or Ocular Disease Dataset is a curated and preprocessed collection of fundus images designed for the classification of Six common ocular diseases and Normal fundus. The dataset addresses limitations such as class imbalance, low generalization, and overfitting that were encountered when models were trained on a single-source dataset.
+To enhance diversity and robustness, this dataset merges images from five publicly available and widely used ophthalmic datasets:
+
+ODIR-2019 (Ocular Disease Intelligent Recognition)
+Mendeley Eye Disease Dataset
+Kaggle Eye Diseases Classification Dataset
+ARMD Curated Dataset 2023
+Hypertension & Hypertensive Retinopathy Dataset
+Each disease class was carefully sourced to ensure high-quality, class-specific representation:
+Cataract: from Kaggle Eye Diseases Classification
+AMD (Age-related Macular Degeneration): from ARMD Curated Dataset
+Hypertensive Retinopathy: from ODIR-2019 and Hypertension dataset
+Glaucoma, Myopia, Diabetic Retinopathy: from Mendeley
+Normal: from ODIR-2019
+📊 Class Distribution
+Disease Class	Image Count
+Age-related Macular Degeneration (A)	511
+Cataract (C)	1,008
+Diabetic Retinopathy (D)	3,128
+Glaucoma (G)	1,646
+Hypertensive Retinopathy (H)	420
+Myopia (M)	739
+Normal (N)	2,997
+Total	10,449
