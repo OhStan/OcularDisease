@@ -1,9 +1,9 @@
 ## Introduction
-The fundus of the eye is the interior surface of the eye opposite the lens and includes the retina, optic disc, macula, fovea, and posterior pole. The fundus can be examined by fundus photography. Medical signs that can be detected from observation of eye fundus for any lesions. It would be beneficial for us if we could have a machine-learning model that can inform us about possible conditions of the eyes when supplying it with fundus images. For this project, we have obtained fundus images from [Kaggle]( https://www.kaggle.com/datasets/manan1717/ocular-disease-dataset) to work with. We will leverage Convolutional Neural Network (CNN) to build our model because it is very efficient in extracting features of increasing complexity and abstraction and has become the backbone of most modern image recognition systems. 
+The fundus of the eye is the interior surface of the eye opposite the lens and includes the retina, optic disc, macula, fovea, and posterior pole. The fundus can be examined by fundus photography. Medical signs that can be detected from observation of eye fundus for any lesions. It would be beneficial for us if we could have a machine-learning model that can inform us about possible conditions of the eyes when supplying it with fundus images. For this project, we have obtained fundus images from [Kaggle]( https://www.kaggle.com/datasets/manan1717/ocular-disease-dataset) to work with. We will leverage Convolutional Neural Network (CNN) to build our model because it is very efficient in extracting features of increasing complexity and abstraction and has become the backbone of most modern image recognition systems. In addition, CBAM (Convolutional Block Attention Module) will be integrated into our CNN to enhance the representational power of the network by focusing on important features along both the spatial and channel dimensions.  
 <br>
 
 ## Objective
-Our objective is to build a Convolutional Neural Network (CNN) model that can classify out of the given six common ocular diseases and normal fundus. 
+Our objective is to build a Convolutional Neural Network (CNN) model that can classify out of the given six common ocular diseases and normal fundus.  
 <br>
 
 ## Labels and Class Distribution
