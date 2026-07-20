@@ -111,11 +111,14 @@ Overall F1 Score:&nbsp;&nbsp;&nbsp;&nbsp;0.7749
 
 <br>
 
+To sum up, we have successfully produced an effective classification model that can identify the specific ocular disease of eyes, out of the provided 6 conditions plus 1 normal, when providing the fundus images. Our model has good performance metrics where overall accuracy, precision, recall, and F1 score are all being almost 80%. There may be some minor issues when identifying certain conditions, but the overall architecture itself is good. 
+
+
 ## Future Work
 
 For future work, we can consider the following.
 
 1. We can find more images for Class 4, Hypertensive Retinopathy (H), so we can solve the class imbalance issue.
 2. To be able to handle Class 2 more efficiently, we can try other preprocessing methods. For example, we can try identifying the location of the lesion, then crop that region off. Next we can use the lesion only image, without resizing down too much of the resolution, to do the training. 
-To sum up, we have successfully produced an effective classification model that can identify the specific ocular disease of eyes, out of the provided 6 conditions plus 1 normal, when providing the fundus images. Our model has good performance metrics where overall accuracy, precision, recall, and F1 score are all being almost 80%. There may be some minor issues when identifying certain conditions, but the overall architecture itself is good. 
+
 
