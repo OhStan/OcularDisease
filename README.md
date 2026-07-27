@@ -111,6 +111,10 @@ Overall F1 Score:&nbsp;&nbsp;&nbsp;&nbsp;0.7749
 
 <br>
 
+Speaking of Hyper Parameter Tuning, we chose the learning rate to be 0.001, batch size to be 64, and the maximum number of epochs to be 500, with an early stopping mechanism implemented.  We used to set up a learning rate scheduler with StepLR, yet it does not improve the outcome, so we chose to keep the learning rate constant at 0.001. We implemented the loss function with "CrossEntropyLoss(label_smoothing=0.1, weight = label_weights)", where the "label_weights" have Class 2, Diabetic Retinopathy (D) being 1.2, while all others are 1.0. This is because we found out the model tends to mislabel Class 2, Diabetic Retinopathy (D) to be Class 6, Normal (N). With the weight adjustment of labels, it helps to improve the per-class accuracy. 
+
+<br>
+
 To sum up, we have successfully produced an effective classification model that can identify the specific ocular disease of eyes, out of the provided 6 conditions plus 1 normal, when providing the fundus images. Our model has good performance metrics where overall accuracy, precision, recall, and F1 score are all being almost 80%. There may be some minor issues when identifying certain conditions, but the overall architecture itself is good.  
 <br>
 
