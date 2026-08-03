@@ -1,28 +1,31 @@
+Ocular Disease ReadMe
+
 ## Introduction
-The fundus of the eye is the interior surface of the eye opposite the lens and includes the retina, optic disc, macula, fovea, and posterior pole. The fundus can be examined by fundus photography. Medical signs that can be detected from observation of eye fundus for any lesions. It would be beneficial for us if we could have a machine-learning model that can inform us about possible conditions of the eyes when supplying it with fundus images. For this project, we have obtained fundus images from [Kaggle]( https://www.kaggle.com/datasets/manan1717/ocular-disease-dataset) to work with. We will leverage Convolutional Neural Network (CNN) to build our model because it is very efficient in extracting features of increasing complexity and abstraction and has become the backbone of most modern image recognition systems. In addition, CBAM (Convolutional Block Attention Module) will be integrated into our CNN to enhance the representational power of the network by focusing on important features along both the spatial and channel dimensions.  
+The fundus of the eye is the interior surface of the eye opposite the lens and includes the retina, optic disc, macula, fovea, and posterior pole. The fundus can be examined by fundus photography. Medical signs that can be detected from observation of eye fundus for any lesions. It would be beneficial for us if we could have a machine-learning model that can inform us about possible conditions of the eyes when supplying it with fundus images. For this project, we have obtained fundus images from [Kaggle]( https://www.kaggle.com/datasets/manan1717/ocular-disease-dataset) to work with. We will leverage Convolutional Neural Network (CNN) to build our model because it is very efficient in extracting features of increasing complexity and abstraction and has become the backbone of most modern image recognition systems. In addition, CBAM (Convolutional Block Attention Module) will be integrated into our CNN to enhance the representational power of the network by focusing on important features along both the spatial and channel dimensions.
 <br>
 
 ## Objective
-Our objective is to build a Convolutional Neural Network (CNN) model that can classify out of the given six common ocular diseases and normal fundus.  
+Our objective is to build a Convolutional Neural Network (CNN) model that can classify out of the given six common ocular diseases and normal fundus. 
 <br>
 
 ## Labels and Class Distribution
-Disease Class || Image Count  
-Age-related Macular Degeneration (A) || 511  
-Cataract (C) || 1,008  
-Diabetic Retinopathy (D) || 3,128  
-Glaucoma (G) || 1,646  
-Hypertensive Retinopathy (H) || 420  
-Myopia (M) || 739  
-Normal (N) || 2,997  
-Total || 10,449  
+Disease Class || Image Count
+Age-related Macular Degeneration (A) || 511
+Cataract (C) || 1,008
+Diabetic Retinopathy (D) || 3,128
+Glaucoma (G) || 1,646
+Hypertensive Retinopathy (H) || 420
+Myopia (M) || 739
+Normal (N) || 2,997
+Total || 10,449
 <br>
 
-## Platform and Software Versions
+## Platform and Software Versions  
 Python Version: 3.12.13 | packaged by Anaconda, Inc.  
 PyTorch Version:  2.13.0+cu130  
 GPU: NVIDIA GeForce RTX 4070  
 CUDA UMD Version: 13.3  
+OS: WIN 11 with Windows Subsystem for Linux, Ubuntu 24.04.4 LTS
 <br>
 
 
@@ -91,31 +94,32 @@ CNNet                                         [1, 7]                    --
 
 ## Discussion
 
-Our proposed CNN model is able to produce an overall accuracy of 77%, overall precision of 0.7803, overall recall of 0.7742, and overall F1 score of 0.7749. Meanwhile, the per-class accuracies are ranging from 63% to 99%. The highest being Class 1, Cataract (C), being 99%. Taking a look at the raw images of Class 1, we can observe that the images of this class are very distinctive visually and are easy to identify. This means the features of Class 1 were distinctive enough that our model can easily learnt. The worse class is Class 4, Hypertensive Retinopathy (H), has an accuracy of only 63%. This is due to class 4 has the smallest number of images (420, 4% of total) for the model to train on, a class imbalance issue. In this case, the neural network cannot learn too much about the features of class 4. For Class 2, Diabetic Retinopathy (D), while it has highest number of images (3,128 records), its accuracy is not among the highest ones. From the confusion matrix, we can observe that Class 2 was often mistaken as Class 6 Normal (N), or vice versa. By observing the images of Class 2 being mistaken as Class 6, we found that Class 2 images genuinely look like normal eyes. This means our model cannot efficiently differentiate Class 2 and Class 6 due to their visual similarity. 
+Our proposed CNN model is able to produce an overall accuracy of 79.66%, overall precision of 0.8024, overall recall of 0.7966, and overall F1 score of 0.7964. Meanwhile, the per-class accuracy ranged from 65% to 99%. The highest being Class 1, Cataract (C), being 98.68%. Taking a look at the raw images of Class 1, we can observe that the images of this class are very distinctive visually and are easy to identify. This means the features of Class 1 were distinctive enough that our model can easily learnt. The worse class is Class 4, Hypertensive Retinopathy (H), with an accuracy of only about 65%. This is due to class 4 having the smallest number of images (420, 4% of total) for the model to train on, a class imbalance issue. In this case, the neural network cannot learn too much about the features of class 4. For Class 2, Diabetic Retinopathy (D), while it has highest number of images (3,128 records), its accuracy is not among the highest ones. From the confusion matrix, we can observe that Class 2 was often mistaken as Class 6 Normal (N), or vice versa. By observing the images of Class 2 being mistaken as Class 6, we found that Class 2 images genuinely look like normal eyes. This means our model cannot efficiently differentiate Class 2 and Class 6 due to their visual similarity.  
 
 Recap  
 Per-class Accuracies  
-Class 0: 0.8421  
-Class 1: 0.9934  
-Class 2: 0.7191  
-Class 3: 0.7976  
-Class 4: 0.6349  
+Class 0: 0.9868  
+Class 1: 0.9801  
+Class 2: 0.7085  
+Class 3: 0.8057  
+Class 4: 0.6508  
 Class 5: 0.7387  
-Class 6: 0.7622  
+Class 6: 0.8244  
 
 Performance Metrics  
-Overall Accuracy:&nbsp;&nbsp;&nbsp;&nbsp;0.7742  
-Overall Precision:&nbsp;&nbsp;&nbsp;&nbsp;0.7803  
-Overall Recall:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.7742  
-Overall F1 Score:&nbsp;&nbsp;&nbsp;&nbsp;0.7749  
+Overall Accuracy:&nbsp;&nbsp;&nbsp;&nbsp; 0.7966  
+Overall Precision:&nbsp;&nbsp;&nbsp;&nbsp; 0.8024  
+Overall Recall:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0.7966  
+Overall F1 Score:&nbsp;&nbsp;&nbsp;&nbsp; 0.7966  
 
 <br>
 
-Speaking of Hyper Parameter Tuning, we chose the learning rate to be 0.001, batch size to be 64, and the maximum number of epochs to be 500, with an early stopping mechanism implemented.  We used to set up a learning rate scheduler with StepLR, yet it does not improve the outcome, so we chose to keep the learning rate constant at 0.001. We implemented the loss function with "CrossEntropyLoss(label_smoothing=0.1, weight = label_weights)", where the "label_weights" have Class 2, Diabetic Retinopathy (D) being 1.2, while all others are 1.0. This is because we found out the model tends to mislabel Class 2, Diabetic Retinopathy (D) to be Class 6, Normal (N). With the weight adjustment of labels, it helps to improve the per-class accuracy. 
+Speaking of Hyper Parameter Tuning, we chose the learning rate to be 0.001, batch size to be 64, and the maximum number of epochs to be 500, with an early stopping mechanism implemented.  We set up a learning rate scheduler with StepLR, scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=60, gamma=0.8), with an initial learning rate of 0.001. If we were to use a constant learning rate at 0.001, the best model will usually be obtained at between 60 to 80 epochs, so we chose to reduce the learning rate at 60th epoch. We implemented the loss function with "CrossEntropyLoss(label_smoothing=0.1, weight = label_weights)", where the "label_weights" have Class 2, Diabetic Retinopathy (D) being 1.3, while all others are 1.0. This is because we found out the model tends to mislabel Class 2, Diabetic Retinopathy (D), to be Class 6, Normal (N). With the weight adjustment of labels, it helps to improve the per-class accuracy. We chose the weight to be 1.3 because it offered the best overall accuracy, i.e., good balance between Class 2 and Class 6. If we put too much weight on Class 2, the model will start mistaking Class 6 to Class 2, resulting in a much lower accuracy for Class 6. Note that we did not add any weight to Class 4 just because it is a minor class. For Class 4, without additional class weight, the model can differentiate it properly and stably. Adding the class weight to Class 4 caused disturbance for the accuracies of Class 2 and Class 6, thus lowering the overall accuracy. Hence, it is best to keep the weight for Class 4 to be 1.0.
 
 <br>
 
-To sum up, we have successfully produced an effective classification model that can identify the specific ocular disease of eyes, out of the provided 6 conditions plus 1 normal, when providing the fundus images. Our model has good performance metrics where overall accuracy, precision, recall, and F1 score are all being almost 80%. There may be some minor issues when identifying certain conditions, but the overall architecture itself is good.  
+To sum up, we have successfully produced an effective classification model that can identify the specific ocular disease of eyes, out of the provided 6 conditions plus 1 normal, when providing the fundus images. Our model has good performance metrics where overall accuracy, precision, recall, and F1 score are all being almost 80%. There may be some minor issues when identifying certain conditions, but the overall architecture itself is good. 
+
 <br>
 
 ## Future Work
@@ -123,6 +127,6 @@ To sum up, we have successfully produced an effective classification model that 
 For future work, we can consider the following.
 
 1. We can find more images for Class 4, Hypertensive Retinopathy (H), so we can solve the class imbalance issue.
-2. To be able to handle Class 2 more efficiently, we can try other preprocessing methods. For example, we can try identifying the location of the lesion, then crop that region off. Next we can use the lesion only image, without resizing down too much of the resolution, to do the training. 
 
+2. To be able to handle Class 2 more efficiently, we can try other preprocessing methods. For example, we can try identifying the location of the lesion, then crop that region off. Next we can use the lesion only image, without resizing down too much of the resolution, to do the training. 
 
