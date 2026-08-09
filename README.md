@@ -126,7 +126,12 @@ To sum up, we have successfully produced an effective classification model that 
 
 For future work, we can consider the following.
 
-1. We can find more images for Class 4, Hypertensive Retinopathy (H), so we can solve the class imbalance issue.
+1. We can implement the same CNN architecture design with the same fundus images here with TensorFlow instead to validate the outcome in this project.
 
-2. To be able to handle Class 2 more efficiently, we can try other preprocessing methods. For example, we can try identifying the location of the lesion, then crop that region off. Next we can use the lesion only image, without resizing down too much of the resolution, to do the training. 
+2. We can find more images for Class 4, Hypertensive Retinopathy (H), so we can solve the class imbalance issue.
+
+3. To be able to handle Class 2 more efficiently, we can try other preprocessing methods. For example, we can try identifying the location of the lesion, then crop that region off. Next we can use the lesion only image, without resizing down too much of the resolution, to do the training.
+
+4. Try to do transfer learning with pre-train general purpose computer vision models, such as ResNet50, VGG16, Ultralytics YOLO, etc, with our fundus images, and see how this goes.
+
 
