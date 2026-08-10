@@ -8,16 +8,16 @@ The fundus of the eye is the interior surface of the eye opposite the lens and i
 Our objective is to build a Convolutional Neural Network (CNN) model from scratch that can classify out of the given six common ocular diseases and normal fundus. 
 <br>
 
-## Labels and Class Distribution
-Disease Class || Image Count
-Age-related Macular Degeneration (A) || 511
-Cataract (C) || 1,008
-Diabetic Retinopathy (D) || 3,128
-Glaucoma (G) || 1,646
-Hypertensive Retinopathy (H) || 420
-Myopia (M) || 739
-Normal (N) || 2,997
-Total || 10,449
+## Labels and Class Distribution  
+Disease Class || Image Count  
+Age-related Macular Degeneration (A) || 511  
+Cataract (C) || 1,008  
+Diabetic Retinopathy (D) || 3,128  
+Glaucoma (G) || 1,646  
+Hypertensive Retinopathy (H) || 420  
+Myopia (M) || 739  
+Normal (N) || 2,997  
+Total || 10,449  
 <br>
 
 ## Platform and Software Versions  
