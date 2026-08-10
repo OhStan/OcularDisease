@@ -132,7 +132,8 @@ For future work, we can consider the following.
 <br>
 
 <br>
-=================================================================================
+
+***
 
 ## Update: Follow up project with TensorFlow
 <br>
