@@ -5,7 +5,7 @@ The fundus of the eye is the interior surface of the eye opposite the lens and i
 <br>
 
 ## Objective
-Our objective is to build a Convolutional Neural Network (CNN) model that can classify out of the given six common ocular diseases and normal fundus. 
+Our objective is to build a Convolutional Neural Network (CNN) model from scratch that can classify out of the given six common ocular diseases and normal fundus. 
 <br>
 
 ## Labels and Class Distribution
@@ -29,7 +29,7 @@ OS: WIN 11 with Windows Subsystem for Linux, Ubuntu 24.04.4 LTS
 <br>
 
 
-## CNN Model Summary
+## PyTorch CNN Model Summary
 <br>
 
 ````markdown
@@ -115,12 +115,11 @@ Overall F1 Score:&nbsp;&nbsp;&nbsp;&nbsp; 0.7966
 <br>
 
 Speaking of Hyper Parameter Tuning, we chose the learning rate to be 0.001, batch size to be 64, and the maximum number of epochs to be 500, with an early stopping mechanism implemented.  We set up a learning rate scheduler with StepLR, scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=60, gamma=0.8), with an initial learning rate of 0.001. If we were to use a constant learning rate at 0.001, the best model will usually be obtained at between 60 to 80 epochs, so we chose to reduce the learning rate at 60th epoch. We implemented the loss function with "CrossEntropyLoss(label_smoothing=0.1, weight = label_weights)", where the "label_weights" have Class 2, Diabetic Retinopathy (D) being 1.3, while all others are 1.0. This is because we found out the model tends to mislabel Class 2, Diabetic Retinopathy (D), to be Class 6, Normal (N). With the weight adjustment of labels, it helps to improve the per-class accuracy. We chose the weight to be 1.3 because it offered the best overall accuracy, i.e., good balance between Class 2 and Class 6. If we put too much weight on Class 2, the model will start mistaking Class 6 to Class 2, resulting in a much lower accuracy for Class 6. Note that we did not add any weight to Class 4 just because it is a minor class. For Class 4, without additional class weight, the model can differentiate it properly and stably. Adding the class weight to Class 4 caused disturbance for the accuracies of Class 2 and Class 6, thus lowering the overall accuracy. Hence, it is best to keep the weight for Class 4 to be 1.0.
-
 <br>
 
 To sum up, we have successfully produced an effective classification model that can identify the specific ocular disease of eyes, out of the provided 6 conditions plus 1 normal, when providing the fundus images. Our model has good performance metrics where overall accuracy, precision, recall, and F1 score are all being almost 80%. There may be some minor issues when identifying certain conditions, but the overall architecture itself is good. 
-
 <br>
+
 
 ## Future Work
 
@@ -130,5 +129,184 @@ For future work, we can consider the following.
 2. We can find more images for Class 4, Hypertensive Retinopathy (H), so we can solve the class imbalance issue.
 3. To be able to handle Class 2 more efficiently, we can try other preprocessing methods. For example, we can try identifying the location of the lesion, then crop that region off. Next we can use the lesion only image, without resizing down too much of the resolution, to do the training.
 4. Try to do transfer learning with pre-train general purpose computer vision models, such as ResNet50, VGG16, Ultralytics YOLO, etc, with our fundus images, and see how this goes.
+<br>
+
+<br>
+=================================================================================
+
+## Update: Follow up project with TensorFlow
+<br>
+
+## Introduction
+This is a follow-up of the previous project (link) with the same CNN architecture design and the same fundus images using PyTorch, except now we are using TensorFlow.
+<br>
+
+## Objective
+Our objective is to build a Convolutional Neural Network (CNN) model from scratch that can classify out of the given six common ocular diseases and normal fundus. Meanwhile, we want to check the performance metrics of the resulting model, and compare against the ones we obtained in the last project, to validate the outcome.
+<br>
+
+
+## Labels and Class Distribution (same as before)  
+Disease Class || Image Count  
+Age-related Macular Degeneration (A) || 511  
+Cataract (C) || 1,008  
+Diabetic Retinopathy (D) || 3,128  
+Glaucoma (G) || 1,646  
+Hypertensive Retinopathy (H) || 420  
+Myopia (M) || 739  
+Normal (N) || 2,997  
+Total || 10,449  
+<br>
+
+
+## Platform and Software Versions  (same as before)
+Python Version: 3.12.13 | packaged by Anaconda, Inc.  
+PyTorch Version:  2.13.0+cu130  
+GPU: NVIDIA GeForce RTX 4070  
+CUDA UMD Version: 13.3  
+OS: WIN 11 with Windows Subsystem for Linux, Ubuntu 24.04.4 LTS
+<br>
+
+
+## TensorFlow CNN Model Summary
+<br>
+
+````markdown
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ Layer (type)                    │ Output Shape           │       Param # │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ input_layer_2 (InputLayer)      │ (None, 256, 256, 3)    │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d (Conv2D)                 │ (None, 256, 256, 32)   │           864 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ batch_normalization             │ (None, 256, 256, 32)   │           128 │
+│ (BatchNormalization)            │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ re_lu (ReLU)                    │ (None, 256, 256, 32)   │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d (MaxPooling2D)    │ (None, 128, 128, 32)   │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_1 (Conv2D)               │ (None, 128, 128, 64)   │        18,432 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ batch_normalization_1           │ (None, 128, 128, 64)   │           256 │
+│ (BatchNormalization)            │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ re_lu_1 (ReLU)                  │ (None, 128, 128, 64)   │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_1 (MaxPooling2D)  │ (None, 64, 64, 64)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_2 (Conv2D)               │ (None, 64, 64, 128)    │        73,728 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ batch_normalization_2           │ (None, 64, 64, 128)    │           512 │
+│ (BatchNormalization)            │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ re_lu_2 (ReLU)                  │ (None, 64, 64, 128)    │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_2 (MaxPooling2D)  │ (None, 32, 32, 128)    │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_3 (Conv2D)               │ (None, 32, 32, 256)    │       294,912 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ batch_normalization_3           │ (None, 32, 32, 256)    │         1,024 │
+│ (BatchNormalization)            │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ re_lu_3 (ReLU)                  │ (None, 32, 32, 256)    │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_3 (MaxPooling2D)  │ (None, 16, 16, 256)    │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_4 (Conv2D)               │ (None, 16, 16, 512)    │     1,179,648 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ batch_normalization_4           │ (None, 16, 16, 512)    │         2,048 │
+│ (BatchNormalization)            │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ re_lu_4 (ReLU)                  │ (None, 16, 16, 512)    │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ cbam (CBAM)                     │ (None, 16, 16, 512)    │        32,866 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_4 (MaxPooling2D)  │ (None, 8, 8, 512)      │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_8 (Conv2D)               │ (None, 8, 8, 512)      │     2,359,296 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ batch_normalization_5           │ (None, 8, 8, 512)      │         2,048 │
+│ (BatchNormalization)            │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ re_lu_5 (ReLU)                  │ (None, 8, 8, 512)      │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ cbam_1 (CBAM)                   │ (None, 8, 8, 512)      │        32,866 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ average_pooling2d               │ (None, 2, 2, 512)      │             0 │
+│ (AveragePooling2D)              │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ flatten (Flatten)               │ (None, 2048)           │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense (Dense)                   │ (None, 256)            │       524,544 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dropout (Dropout)               │ (None, 256)            │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_1 (Dense)                 │ (None, 128)            │        32,896 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dropout_1 (Dropout)             │ (None, 128)            │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_2 (Dense)                 │ (None, 7)              │           903 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 4,556,971 (17.38 MB)
+ Trainable params: 4,553,963 (17.37 MB)
+ Non-trainable params: 3,008 (11.75 KB)
+
+````
+<br>
+
+<br>
+
+## Discussion  
+
+Our proposed CNN model is able to produce an overall accuracy of 77%, overall precision of 0.78, overall recall of 0.77, and overall F1 score of 0.77. Meanwhile, the per-class accuracies ranged from 63% to 97%. The highest being Class 1, Cataract (C), being 97%. The worse class is Class 4, Hypertensive Retinopathy (H), has an accuracy of only 63%. This is similar, yet slightly worse than the results of our previous model implemented in PyTorch (link). Note that, for this model implemented with TensorFlow, we did not put any weights on the label of Class 2, whereas in previous one with PyTorch, we put a weight of 1.3 onto Class 2, leaving 1.0 for all other classes. In addition, in this project, we used a constant learning rate at 1e-3, while in previous one, we used a dynamic learning rate. This is because either adding the weight onto Class 2, or using a dynamic learning rate in this project with TensorFlow, somehow resulted in a worse overall performance of the model.  
+
+Recap  
+Per-class Accuracies (This Project with TensorFlow)  
+Class 0: 0.8289  
+Class 1: 0.9735  
+Class 2: 0.7383  
+Class 3: 0.8421  
+Class 4: 0.6349  
+Class 5: 0.6577  
+Class 6: 0.7267  
+
+Per-class Accuracies (Previous Project with PyTorch)  
+Class 0: 0.9868  
+Class 1: 0.9801  
+Class 2: 0.7085  
+Class 3: 0.8057  
+Class 4: 0.6508  
+Class 5: 0.7387  
+Class 6: 0.8244  
+
+Performance Metrics (This Project with TensorFlow)  
+Overall Accuracy:&nbsp;&nbsp;&nbsp;&nbsp;0.7685  
+Overall Precision:&nbsp;&nbsp;&nbsp;&nbsp;0.7766  
+Overall Recall:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.7685  
+Overall F1 Score:&nbsp;&nbsp;&nbsp;&nbsp;0.7692  
+
+Performance Metrics (Previous Project with PyTorch)  
+Overall Accuracy:&nbsp;&nbsp;&nbsp;&nbsp;0.7966  
+Overall Precision:&nbsp;&nbsp;&nbsp;&nbsp;0.8024  
+Overall Recall:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.7966  
+Overall F1 Score:&nbsp;&nbsp;&nbsp;&nbsp;0.7964  
+
+To account for the difference between TensorFlow and PyTorch, we have adjusted in this project with TensorFlow, so that we can closely reproduce PyTorch behavior. For example, we included the option kernel_initializer="he_uniform", for all the Conv2D layers, since PyTorch's default initialization for Conv2D is essentially Kaiming/He uniform distribution, yet the TensorFlow's Conv2D by default initialize with Glorot/Xavier uniform distribution. For BatchNormalization, we used the options momentum=0.9, epsilon=1e-5, to match that of the PyTorch. Another noticeable difference is in the data augmentation steps. In this project with TensorFlow, we used RandomFlip, RandomRotation, RandomBrightness and RandomContrast, one by one, while in previous project with PyTorch, we used RandomHorizontalFlip, RandomVerticalFlip, RandomRotation(10), then ColorJitter with brightness=0.1, contrast=0.1, and saturation=0.1. The ColorJitter in PyTorch works so that it randomly changes one or many of the brightness, contrast, and saturation. To reproduce this behavior in TensorFlow, we manually include these augmentations, but it would mean the data pipeline will actually do all the random change of brightness, contrast, and saturation. Note that we did not include the random change for saturation in TensorFlow project, this is because adding it will cause the accuracy to dropdown significantly.  
+
+To sum up, we have successfully produced an effective classification model from scratch with TensorFlow, following the CNN architecture design of our previous project with PyTorch, that can identify the specific ocular disease of eyes, out of the provided 6 conditions plus 1 normal. Our model has good performance metrics where overall accuracy, precision, recall, and F1 score are all being above 75%. Due to the differences between the two frameworks, our implementation of the same architecture design from PyTorch into TensorFlow resulted in slight degradation of the model performance metrics. Further tunning will be needed for our TensorFlow model to achieve or go beyond the model metrics obtained by our previous PyTorch model. We can also conclude that our previous result with PyTorch has been validated, since the resulting models from the two projects have comparable performance metrics.  
+
+<br>
+
+## Future Work  
+
+For future work, we can consider the following.  
+
+1. We can do further fine tuning on the hyper parameters, adjusting the CNN architecture, or modifying the augmentation steps. This is because PyTorch and TensorFlow have some fundamental differences, and the two are doing things differently, what works well in one may not produce great outcome in the other.
+2. We can find more images for Class 4, Hypertensive Retinopathy (H), so we can solve the class imbalance issue.
+3. To be able to handle Class 2 more efficiently, we can try other preprocessing methods. For example, we can try identifying the location of the lesion, then crop that region off. Next we can use the lesion only image, without resizing down too much of the resolution, to do the training.
+4. Try to do transfer learning with pre-train general purpose computer vision models, such as ResNet50, VGG16, Ultralytics YOLO, etc, with our fundus images, and see how this goes.
+
+
 
 
